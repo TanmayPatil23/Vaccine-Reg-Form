@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{{ title }}</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body style="background-color: rgb(65, 65, 65);">
+   {% if result == 'none' %}
+   <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="col-md-12 text-center mt-5">
+         {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+   </form>
+   {% else %}
+   <section class="container mt-5 mx-auto col-xl-8" style="background-color: rgb(255, 255, 255);">
+      <h5 class="text-center mb-3">Validation Result</h5>
+      <table class="table table-striped" id="validation-table">
+         <tr>
+            <th>Field</th>
+            <th>Value</th>
+            <th>Result</th>
+         </tr>
+         {% for field in testcase %}
+         <tr>
+            <td>{{field}}</td>
+            <td>{{record[field]}}</td>
+            <td> 
+               {% if testcase[field] == 'pass' %} <img src="{{url_for('static', filename='pass.png')}}" style="height: 30px; width: 30px;" alt="..."> 
+               {% else %}
+               <img src="{{url_for('static', filename='fail.png')}}" style="height: 30px; width: 30px;" alt="...">
+               {% endif %}
+            </td>
+         </tr>
+         {% endfor %}
+      </table>
+   </section>
+   {% endif %}
+   <script>
+      function addRow(field, value, result){
+         validationTable = document.getElementById("validation-result")
+
+         row = document.createElement("tr")
+         col1 = document.createElement("td")
+         col2 = document.createElement("td")
+         col3 = document.createElement("td")
+
+         col1.style.textContent = field
+         col2.style.textContent = value
+         img = document.createElement("img")
+         if(result == "pass"){
+            img.src = '{{url_for("static", filename="pass.png")}}'
+         }
+         else{
+            img.src = '{{url_for("static", filename="pass.png")}}'
+         }
+
+         col3.appendChild(img)
+         row.appendChild(col1)
+         row.appendChild(col2)
+         row.appendChild(col3)
+         validationTable.appendChild(row)
+         return
+      }
+   </script>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

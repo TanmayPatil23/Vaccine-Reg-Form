@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: rgb(65, 65, 65);">
+    <section class="container mt-4 mx-auto" style="background-color: white;">
+        <h4 class="text-center mb-3">Vaccine Registration Form</h4>
+        <form class="row g-3" method="POST" action="{{url_for('register')}}">
+            {{ form.hidden_tag() }}
+            <div class="col-md-4">
+                {{ form.first_name.label(class="form-label") }}
+                {{ form.first_name(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.middle_name.label(class="form-label") }}
+                {{ form.middle_name(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.last_name.label(class="form-label") }}
+                {{ form.last_name(class="form-control") }}
+            </div>
+            <div class="col-md-4 ">
+                {{ form.dob.label(class="form-label", placeholder = 'dd/mm/yyyy') }}
+                {{ form.dob(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.mobile.label(class="form-label") }}
+                {{ form.mobile(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.age.label(class="form-label") }}
+                {{ form.age(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.gender.label(class="form-label") }}
+                {{ form.gender(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.city.label(class="form-label") }}
+                {{ form.city(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.state.label(class="form-label") }}
+                {{ form.state(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.pin.label(class="form-label") }}
+                {{ form.pin(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.aadhar.label(class="form-label") }}
+                {{ form.aadhar(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.blood_grp.label(class="form-label") }}
+                {{ form.blood_grp(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.dose_num.label(class="form-label") }}
+                {{ form.dose_num(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.prev_id.label(class="form-label") }}
+                {{ form.prev_id(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.prev_date.label(class="form-label") }}
+                {{ form.prev_date(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.vaccine_name.label(class="form-label") }}
+                {{ form.vaccine_name(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ form.preferred_date.label(class="form-label") }}
+                {{ form.preferred_date(class="form-control") }}
+            </div>
+            <div class="col-md-12 text-center mb-3">
+                {{ form.submit(class="btn btn-outline-primary") }}
+            </div>
+        </form>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
