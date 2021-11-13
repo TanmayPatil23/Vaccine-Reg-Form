@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField
+from testing_tool import Validation_Tool
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4a7139823b8f9f3f4d5512f7b0b1b9add4cc843c7b4506cba7189305dfe55158'
@@ -60,3 +62,23 @@ def register():
     else:
         return render_template('register.html', title='Registration From', form=form)
     return render_template('register.html', title='Registration From', form=form)
+
+
+@app.route('/validate', methods=['GET', 'POST'])
+def validate():
+    form = ValidateForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        file = open('records.txt')
+        record = file.read()
+        file.close()
+        tool = Validation_Tool()
+        record = tool.validate(record.splitlines()[-1])
+        # print(tool.testcase)
+        # print(record)
+        return render_template('validate.html', title='Validate', record=record, testcase=tool.testcase)
+    else:
+        return render_template('validate.html', title='Validate', form=form, result='none')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
