@@ -11,14 +11,14 @@
 #### 1. Clone repository and change current working directory to the project directory
 <hr>
 
-#### 2. Install dependencies <div style='font-size: 12px'>```pip3 install -r requirements.txt``` </div>
+#### 2. Install dependencies <div style='font-size: 10px'>```pip3 install -r requirements.txt``` </div>
 <hr>
 
-#### 3. Run app.py <div style='font-size: 12px'>```python3 app.py``` </div>
+#### 3. Run app.py <div style='font-size: 10px'>```python3 app.py``` </div>
 
 <hr>
 
-#### 3. Open browser and browse to  <div style='font-size: 12px'>```localhost:5000/```</div>
+#### 3. Open browser and browse to  <div style='font-size: 10px'>```localhost:5000/```</div>
 
 <hr>
 
