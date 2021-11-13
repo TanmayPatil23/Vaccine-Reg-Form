@@ -49,6 +49,75 @@ class Validation_Tool():
       self.testcase['vaccine_name'] = 'pass'
       self.testcase['preferred_date'] = 'pass'
    
+   def validate(self, record):
+      record = record.strip().rstrip('\n')[1:-1]
+      pairs = record.split(',')
+      record = {}
+      for pair in pairs:
+         split_pair = pair.strip().split(':')
+         key, value = split_pair[0].strip().replace("'", ''), split_pair[1].strip().replace("'", '')
+         record[key] = value
+      for field in record:
+         data = record[field].strip()
+         type = self.validation[field].type
+         minLength = self.validation[field].minLength
+         maxLength = self.validation[field].maxLength
+         if (field == 'prev_date' or field == 'prev_id') and record['dose_num'] == '1':
+            self.testcase[field] = 'pass'
+            continue
+         if len(data) == 0 or len(data) < minLength or len(data) > maxLength:
+            self.testcase[field] = 'fail'
+            continue
+         elif type == 'date':
+            continue
+         elif type == 'integer':
+            for digit in data:
+               if ord(digit) < 48 or ord(digit) > 57:
+                  self.testcase[field] = 'fail'
+                  break
+            continue
+         if field == 'email':
+            continue
+         elif field == 'age':
+            continue
+         elif field == 'gender':
+            if data.lower() not in ['male', 'female', 'other']:
+               self.testcase[field] = 'fail'
+            continue
+         elif field == 'blood_grp':
+            data = data.lower()
+            if data not in ['a+', 'a-', 'b+', 'b-', 'ab+', 'ab-', 'o+', 'o-']:
+               self.testcase[field] = 'fail'
+            continue
+         elif field == 'dose_num':
+            if data not in ['1', '2']:
+               self.testcase[field] = 'fail'
+            continue
+         elif field == 'prev_id':
+            if record['dose_num'] == '1':
+               self.testcase[field] = 'pass'
+               continue
+            if self.testcase['aadhar'] == 'fail':
+               self.testcase[field] = 'fail'
+               continue
+            if record['aadhar'] != data:
+               self.testcase[field] = 'fail'
+            continue
+         elif field == 'vaccine_name':
+            if data.lower() not in ['covaxin', 'covishield', 'sputnik']:
+               self.testcase[field] = 'fail'
+            continue
+      return record
+         
+if __name__ == '__main__':
+   tool = Validation_Tool()
+   file = open('records.txt')
+   record = file.read()
+   file.close()
+   record = tool.validate(record.splitlines()[-1])
+   print(record)
+   print(tool.testcase)
+
 
 
 
