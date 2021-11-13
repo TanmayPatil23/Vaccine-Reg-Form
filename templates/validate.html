@@ -18,7 +18,10 @@
       </div>
    </form>
    {% else %}
-   <section class="container mt-5 mx-auto col-xl-8" style="background-color: rgb(255, 255, 255);">
+   <div class="text-center mt-3 mb-2">
+      <a class="btn btn-outline-info" href="{{url_for('register')}}">Go To Register</a>
+   </div>
+   <section class="container mt-5 mx-auto col-xl-6" style="background-color: rgb(255, 255, 255);">
       <h5 class="text-center mb-3">Validation Result</h5>
       <table class="table table-striped" id="validation-table">
          <tr>
@@ -27,48 +30,37 @@
             <th>Result</th>
          </tr>
          {% for field in testcase %}
+         {% if testcase[field].result == 'pass' %}
          <tr>
             <td>{{field}}</td>
             <td>{{record[field]}}</td>
-            <td> 
-               {% if testcase[field] == 'pass' %} <img src="{{url_for('static', filename='pass.png')}}" style="height: 30px; width: 30px;" alt="..."> 
-               {% else %}
-               <img src="{{url_for('static', filename='fail.png')}}" style="height: 30px; width: 30px;" alt="...">
-               {% endif %}
+            <td>
+               <img src="{{url_for('static', filename='pass.png')}}" style="height: 30px; width: 30px;" alt="...">
             </td>
          </tr>
+         {% else %}
+         <tr>
+            <td>{{field}}</td>
+            <td>{{record[field]}}</td>
+            <td>
+               <img src="{{url_for('static', filename='fail.png')}}" style="height: 30px; width: 30px;" alt="...">
+            </td>
+         </tr>
+         <tr>
+            <td colspan="3">
+               <details>
+                  <summary>View Error Msg</summary>
+                  <p>{{testcase[field].msg}}</p>
+               </details>
+            </td>
+         </tr>
+         {% endif %}
          {% endfor %}
       </table>
+
    </section>
+
    {% endif %}
-   <script>
-      function addRow(field, value, result){
-         validationTable = document.getElementById("validation-result")
-
-         row = document.createElement("tr")
-         col1 = document.createElement("td")
-         col2 = document.createElement("td")
-         col3 = document.createElement("td")
-
-         col1.style.textContent = field
-         col2.style.textContent = value
-         img = document.createElement("img")
-         if(result == "pass"){
-            img.src = '{{url_for("static", filename="pass.png")}}'
-         }
-         else{
-            img.src = '{{url_for("static", filename="pass.png")}}'
-         }
-
-         col3.appendChild(img)
-         row.appendChild(col1)
-         row.appendChild(col2)
-         row.appendChild(col3)
-         validationTable.appendChild(row)
-         return
-      }
-   </script>
-
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
