@@ -26,3 +26,37 @@ class RegistrationForm(FlaskForm):
     vaccine_name = StringField('Vaccine Name', render_kw={'placeholder': 'Covaxin/Covishield/Sputnik'})
     preferred_date = StringField('Preffered date of Vaccination', render_kw={"placeholder": "dd-mm-yyyy"})
     submit = SubmitField('Register')
+
+
+@app.route('/')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        record = dict()
+        record['first_name'] = form.first_name.data
+        record['middle_name'] = form.middle_name.data
+        record['last_name'] = form.last_name.data
+        record['dob'] = form.dob.data
+        record['mobile'] = form.mobile.data
+        record['email'] = form.email.data
+        record['age'] = form.age.data
+        record['gender'] = form.gender.data
+        record['city'] = form.city.data
+        record['state'] = form.state.data
+        record['pin'] = form.pin.data
+        record['aadhar'] = form.aadhar.data
+        record['blood_grp'] = form.blood_grp.data
+        record['dose_num'] = form.dose_num.data
+        record['prev_id'] = form.prev_id.data
+        record['prev_date'] = form.prev_date.data
+        record['vaccine_name'] = form.vaccine_name.data
+        record['preferred_date'] = form.preferred_date.data
+        file = open('records.txt', 'a')
+        file.write(str(record))
+        file.write('\n')
+        file.close()
+        return redirect('validate')
+    else:
+        return render_template('register.html', title='Registration From', form=form)
+    return render_template('register.html', title='Registration From', form=form)
