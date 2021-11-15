@@ -181,9 +181,14 @@ class Validation_Tool():
                if len(data) != 0:
                   self.testcase[field].result = 'fail'
                   self.testcase[field].msg = 'PrevIdError: PrevID must be empty as current dose num is 1'
+                  continue
+               else:
+                  self.testcase[field].result = 'pass'
+                  continue
             if self.testcase['aadhar'].result == 'fail':
                self.testcase[field].result = 'fail'
                self.testcase[field].msg = 'PrevIdError: Aadhar field is invalid. So does prevID'
+               continue
             if record['aadhar'] != data:
                self.testcase[field].result = 'fail'
                self.testcase[field].msg = f'PrevIdError: prev id must be equal to {record["aadhar"]}'
