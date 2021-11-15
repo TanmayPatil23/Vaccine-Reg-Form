@@ -92,10 +92,14 @@ class Validation_Tool():
       return 'pass'
 
    def validate_str(self, input_string):
-      if input_string.isalpha():
-         return 'pass'
-      else:
-         return 'fail'
+      # if input_string.isalpha():
+      #    return 'pass'
+      # else:
+      #    return 'fail'
+      for i in input_string:
+         if i.isalpha() or i.isspace(): continue
+         else: return 'fail'
+      return 'pass'
 
    def validate_numeric(self, input_string):
       for character in input_string:
